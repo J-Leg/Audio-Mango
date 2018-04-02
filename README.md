@@ -12,4 +12,4 @@ PySoundFile - Audio library (Reading/Writing)
 Numpy - Data. Data. Data.  
 
 
-  ![SomethingAwesome](inclue/repo/mango.jpg?raw=true)
+  ![SomethingAwesome](include/repo/mango.jpg?raw=true)
