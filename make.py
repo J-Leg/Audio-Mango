@@ -19,7 +19,7 @@ def main():
 	if args.sampling:
 		mango.set_sample(args.sampling)
 
-	# Get down and boogy
+	# Get down to business
 	mango.Process()
 
 if __name__ == "__main__":

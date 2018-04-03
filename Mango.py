@@ -14,7 +14,12 @@ class Mango:
 		self.__wav_rate = 44100
 
 	def Process(self):
+		data = self.__process_audio()
 		
+
+
+
+	def __process_audio(self):
 		format = self.__medium[-3:]
 
 		if format == 'wav' or format == 'flac' or format == 'ogg':
@@ -39,7 +44,7 @@ class Mango:
 
 		# Read in audio file
 		data, samplerate = sf.read(self.__medium, always_2d=True)
-		print(data)
+		return data
 
 
 	def set_sample(self, rate):
