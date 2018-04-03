@@ -1,24 +1,33 @@
 from PIL import Image, ImageOps
 from pydub import AudioSegment
+from Mcoder import mc
 import numpy
 import soundfile as sf
 
 class Mango:
 
-	def __init__(self, toHide, medium):
-		self.__toHide = toHide
+	def __init__(self, medium):
 		self.__medium = medium
 		self.__pixels = 30
+		self.__mc = mc(medium)
 
 		# 44100 is an industry standard sampling rate
 		self.__wav_rate = 44100
 
-	def Process(self):
-		
+
+	def Mangonise(self):
+		self.__inputSanity()
+		medium_data = self.__d.decode()
+
+
+
+	def __inputSanity(self):
+
 		format = self.__medium[-3:]
 
 		if format == 'wav' or format == 'flac' or format == 'ogg':
-			print("Native file format detected")
+			# Native file format
+			return
 		elif format == 'mp3':
 
 			print("mp3 file detected!\n"
@@ -33,14 +42,8 @@ class Mango:
 			sound.export(self.__medium, format="wav")	
 		else:
 			print(format + " is not a supported mango.")
-			return
-
-		print("Reading sound file...")
-
-		# Read in audio file
-		data, samplerate = sf.read(self.__medium, always_2d=True)
-		print(data)
-
+			
+		return
 
 	def set_sample(self, rate):
 		self.__wav_rate = rate

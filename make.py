@@ -10,7 +10,7 @@ def main():
 	args = parser.parse_args()
 
 	# Initialise Mango
-	mango = Mango(args.data, args.medium)
+	mango = Mango(args.medium)
 
 	# Set user defined parameters if necessary
 	if args.pixels:
@@ -20,7 +20,7 @@ def main():
 		mango.set_sample(args.sampling)
 
 	# Get down and boogy
-	mango.Process()
+	mango.Mangonise(args.data)
 
 if __name__ == "__main__":
 	main()
