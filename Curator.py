@@ -8,7 +8,6 @@ class Curator:
 	def __init__(self):
 		pass
 
-
 	def Organise(self, inputPath, mediumPath):
 		format = mediumPath[-3:]
 
@@ -33,7 +32,7 @@ class Curator:
 		return inputPath, newPath
 
 	def isValid(self, filePath):
-		format = filePath[-3]
+		format = filePath[-3:]
 		flag = False
 
 		if format == 'wav' or format == 'flac' or format == 'ogg':
