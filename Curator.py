@@ -31,3 +31,12 @@ class Curator:
 			exit(0)
 			
 		return inputPath, newPath
+
+	def isValid(self, filePath):
+		format = filePath[-3]
+		flag = False
+
+		if format == 'wav' or format == 'flac' or format == 'ogg':
+			flag = True
+
+		return flag

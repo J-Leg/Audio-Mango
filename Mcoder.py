@@ -18,7 +18,6 @@ class Mcoder:
 	# Process
 	def juice(self):
 		medium_data = self.__decode(self.__mango.getMedium())
-		print("Decoding complete.")
 		self.__encode(self.__mango.getData(), medium_data)
 		print("Encoding complete.")
 
@@ -35,15 +34,11 @@ class Mcoder:
 
 		self.__num_samples = self.__num_frames * self.__num_channels
 
-
-		minSample = None
-
 		# Floor division
 		# 8 is a reasonable factor of the sampling rate
 		max_bytes = (self.__num_samples * self.__num_lsb) // 8
 
 		fileSize = os.stat(medium).st_size
-
 
 		# Assume sample width is 2
 		# format string, expected layout of the data when packing and unpacking
@@ -78,7 +73,7 @@ class Mcoder:
 		buff_len = 0
 		finished = False
 
-		print("Encoding...")
+		print("Encoding payload...")
 		while(not finished):
 			while (buff_len < num_lsb and data_cursor // 8 < len(input_data)):
 
@@ -104,7 +99,7 @@ class Mcoder:
 				new_sf.append(struct.pack(self.__fmt[-1], medium[medium_cursor]))
 				medium_cursor += 1
 
-			print("data_cursor: " + str(data_cursor) + " ----- medium_cursor: " + str(medium_cursor))
+			# print("data_cursor: " + str(data_cursor) + " ----- medium_cursor: " + str(medium_cursor))
 			if(medium_cursor < len(medium)):
 				current_sample = medium[medium_cursor]
 				medium_cursor += 1
@@ -126,7 +121,7 @@ class Mcoder:
 				finished = True
 
 
-		print("Data exhausted {finished} ---- medium cursor: " + str(medium_cursor))
+		# print("Data exhausted {finished} ---- medium cursor: " + str(medium_cursor))
 
 		# If all the input is hidden
 		# Simply append the rest of the sound file from the medium
@@ -134,11 +129,22 @@ class Mcoder:
 			new_sf.append(struct.pack(self.__fmt[-1], medium[medium_cursor]))
 			medium_cursor += 1
 
+		# print("Rest of the medium appended- Cursor: " + str(medium_cursor))
+
 		# Create file to write to
 		new_sf_handle = wave.open(self.__mango.getOut(), "w")
 		new_sf_handle.setparams(self.__params)
 		new_sf_handle.writeframes(b"".join(new_sf))
 		new_sf_handle.close()
+
+
+	def dejuice(self):
+		input_data = self.__decode(self.__mango.getMedium())
+		self.__extract(input_data)
+		print("Extraction complete.")
+
+
+	def __extract(self, medium):
 
 	def set_lsb(self, value):
 		self.__num_lsb = value
