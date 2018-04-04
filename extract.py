@@ -21,14 +21,8 @@ def main():
 	# Initialise Mcoder
 	mc = Mcoder(mango)
 
-	# Set user defined parameters if necessary
-	# if args.pixels:
-	# 	mango.set_pixels(args.pixels)
-
-	# if args.sampling:
-	# 	mango.set_sample(args.sampling)
-
-
+	# Get up and work
+	mc.dejuice()
 
 
 if __name__ == "__main__":

@@ -15,8 +15,14 @@ class Mcoder:
 		self.__mask = None
 		self.__fmt = None
 
-	# Process
+		self.__isExtraction = None 
+
+	# Forward process ->
 	def juice(self):
+
+		# Let Mcoder know we are encoding
+		self.__isExtraction = False
+
 		medium_data = self.__decode(self.__mango.getMedium())
 		self.__encode(self.__mango.getData(), medium_data)
 		print("Encoding complete.")
@@ -38,6 +44,7 @@ class Mcoder:
 		# 8 is a reasonable factor of the sampling rate
 		max_bytes = (self.__num_samples * self.__num_lsb) // 8
 
+		# File size check for encoding later
 		fileSize = os.stat(medium).st_size
 
 		# Assume sample width is 2
@@ -46,7 +53,13 @@ class Mcoder:
 
 		self.__fmt = fmt
 
-		self.__mask = (1 << 15) - (1 << self.__num_lsb)
+		if self.__isExtraction is True:
+			# Used to extract the least significant num_lsb bits of an integer
+    		mask = (1 << num_lsb) - 1
+    	else:
+    		# Used to set the least significant num_lsb bits of an integer to zero
+			self.__mask = (1 << 15) - (1 << self.__num_lsb)
+
 		self.__min_sample = -(1 << 15)
 
 		raw_data = list(struct.unpack(fmt, w_handle.readframes(self.__num_frames)))
@@ -137,13 +150,15 @@ class Mcoder:
 		new_sf_handle.writeframes(b"".join(new_sf))
 		new_sf_handle.close()
 
-
+	# Backward process <-
 	def dejuice(self):
+		self.__isExtraction = True
 		input_data = self.__decode(self.__mango.getMedium())
 		self.__extract(input_data)
 		print("Extraction complete.")
 
 
+	# More or less the same as encode the other way around
 	def __extract(self, medium):
 
 	def set_lsb(self, value):
