@@ -55,9 +55,9 @@ class Mcoder:
 
 		if self.__isExtraction is True:
 			# Used to extract the least significant num_lsb bits of an integer
-    		mask = (1 << num_lsb) - 1
-    	else:
-    		# Used to set the least significant num_lsb bits of an integer to zero
+			self.__mask = (1 << self.__num_lsb) - 1
+		else:
+			# Used to set the least significant num_lsb bits of an integer to zero
 			self.__mask = (1 << 15) - (1 << self.__num_lsb)
 
 		self.__min_sample = -(1 << 15)
@@ -151,15 +151,46 @@ class Mcoder:
 		new_sf_handle.close()
 
 	# Backward process <-
-	def dejuice(self):
+	def dejuice(self, num_bytes):
 		self.__isExtraction = True
 		input_data = self.__decode(self.__mango.getMedium())
-		self.__extract(input_data)
+		self.__extract(input_data, num_bytes)
 		print("Extraction complete.")
 
 
 	# More or less the same as encode the other way around
-	def __extract(self, medium):
+	def __extract(self, medium, num_bytes):
+
+		# Write out immediately
+		output_handle = open(self.__mango.getOut(), "wb+")
+
+		data = bytearray()
+		medium_cursor = 0
+		buff = 0
+		buff_len = 0
+
+		# Extract until all data is recovered
+		while (num_bytes > 0):
+			curr_sample = medium[medium_cursor]
+
+			if(curr_sample != self.__min_sample):
+				# Didn't sample below min_sample value during encoding
+				buff += (abs(curr_sample) & self.__mask) << buff_len
+				buff_len += self.__num_lsb
+			medium_cursor += 1
+
+			# If more than byte in the buffer
+			# Store in curr_data
+			# Decrement number of bytes remaining
+			while(buff_len >= 8 and num_bytes > 0):
+				curr_data = buff % (1 << 8)
+				buff >>= 8
+				buff_len -= 8
+				data += struct.pack('1B', curr_data)
+				num_bytes -= 1
+
+		output_handle.write(bytes(data))
+		output_handle.close()
 
 	def set_lsb(self, value):
 		self.__num_lsb = value
