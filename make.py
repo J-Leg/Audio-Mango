@@ -31,9 +31,14 @@ def main():
 	# if args.sampling:
 	# 	mango.set_sample(args.sampling)
 
+<<<<<<< HEAD
 	# Get down and boogy
 	mc.juice()
 
+=======
+	# Get down to business
+	mango.Process()
+>>>>>>> master
 
 if __name__ == "__main__":
 	main()
