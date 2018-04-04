@@ -1,13 +1,11 @@
-from PIL import Image, ImageOps
-from pydub import AudioSegment
-import numpy
-import soundfile as sf
 
 class Mango:
-
-	def __init__(self, toHide, medium):
-		self.__toHide = toHide
+	def __init__(self, data, medium, out):
+		self.__data = data
 		self.__medium = medium
+<<<<<<< HEAD
+		self.__out = out
+=======
 		self.__pixels = 30
 
 		# 44100 is an industry standard sampling rate
@@ -45,10 +43,13 @@ class Mango:
 		# Read in audio file
 		data, samplerate = sf.read(self.__medium, always_2d=True)
 		return data
+>>>>>>> master
 
+	def getData(self):
+		return self.__data
 
-	def set_sample(self, rate):
-		self.__wav_rate = rate
+	def getMedium(self):
+		return self.__medium
 
-	def set_pixel(self, rate):
-		self.__pixels = rate
+	def getOut(self):
+		return self.__out
