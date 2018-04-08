@@ -24,13 +24,6 @@ def main():
 	# Handles the decoding/encoding process for mango obj type
 	mc = Mcoder(mango)
 
-	# Set user defined parameters if necessary
-	# if args.pixels:
-	# 	mango.set_pixels(args.pixels)
-
-	# if args.sampling:
-	# 	mango.set_sample(args.sampling)
-
 	# Get down and boogy
 	mc.juice()
 

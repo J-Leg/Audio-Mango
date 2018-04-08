@@ -16,11 +16,13 @@ class Curator:
 			return inputPath, mediumPath
 		elif format == 'mp3':
 
-			newPath = mediumPath[:-3] + "wav"
+			newPath = "wav/" + mediumPath[:-3] + "wav"
 
 			print("mp3 file detected!\n"
 				+ "Converting to "
 				+ newPath + "...")
+
+			print("Storing in wav dir.")
 
 			# Convert into wav
 			sound = AudioSegment.from_mp3(mediumPath)
