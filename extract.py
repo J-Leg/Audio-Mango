@@ -1,8 +1,9 @@
 import argparse
 import os
-from Mcoder import Mcoder
-from Curator import Curator
-from Mango import Mango
+import sys
+from src.Mcoder import Mcoder
+from src.Curator import Curator
+from src.Mango import Mango
 
 def main():
 	directory = 'payload_lib/'

@@ -1,7 +1,7 @@
 import argparse
-from Curator import Curator
-from Mango import Mango
-from Mcoder import Mcoder
+from src.Curator import Curator
+from src.Mango import Mango
+from src.Mcoder import Mcoder
 
 def main():
 	parser = argparse.ArgumentParser()
