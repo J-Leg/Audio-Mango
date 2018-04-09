@@ -1,7 +1,7 @@
 import argparse
-from Curator import Curator
-from Mango import Mango
-from Mcoder import Mcoder
+from src.Curator import Curator
+from src.Mango import Mango
+from src.Mcoder import Mcoder
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -23,13 +23,6 @@ def main():
 	# Initialise Mcoder
 	# Handles the decoding/encoding process for mango obj type
 	mc = Mcoder(mango)
-
-	# Set user defined parameters if necessary
-	# if args.pixels:
-	# 	mango.set_pixels(args.pixels)
-
-	# if args.sampling:
-	# 	mango.set_sample(args.sampling)
 
 	# Get down and boogy
 	mc.juice()
