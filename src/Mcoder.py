@@ -1,6 +1,10 @@
 import wave
+import sys
 import os
 import struct
+import array
+import math
+from PIL import Image, ImageOps
 
 class Mcoder:
 	def __init__(self, mango):
@@ -16,6 +20,72 @@ class Mcoder:
 		self.__fmt = None
 
 		self.__isExtraction = None 
+
+
+	def spectro(self):
+		out = self.__mango.getOut()
+		ip = self.__mango.getData()
+
+		minfreq = 5000
+		maxfreq = 10000
+		wavrate = 44100
+		pxs     = 30
+
+		# L flag to greyscale the bmp
+		img = Image.open(ip).convert('L')
+
+		output = wave.open(out, 'w')
+
+		# nchannels, sample_width, framerate, nframes, comptype, compname
+		output.setparams((1, 2, wavrate, 0, 'NONE', 'not compressed'))
+
+		# Height the image will appear in the spectrogram
+		freqrange = maxfreq - minfreq
+
+		# Width
+		interval = freqrange / img.size[1]
+
+		fpx = int(wavrate / pxs)
+
+		# h flag for signed short type
+		data = array.array('h')
+
+		for x in range(img.size[0]):
+			row = []
+			for y in range(img.size[1]):
+				yinv = img.size[1] - y - 1
+				amp = img.getpixel((x,y))
+				if (amp > 0):
+					row.append(self.__genwave(yinv * interval + minfreq, amp, fpx, wavrate) )
+
+			for i in range(fpx):
+				for j in row:
+					try:
+						data[i + x * fpx] += j[i]
+					except(IndexError):
+						data.insert(i + x * fpx, j[i])
+					except(OverflowError):
+						if j[i] > 0:
+							data[i + x * fpx] = 32767
+						else:
+							data[i + x * fpx] = -32768
+			sys.stdout.write("Progress: %d%%   \r" % (float(x) / img.size[0]*100) )
+			sys.stdout.flush()
+
+		print("Conversion complete!")
+		print("Saved in: " + out)
+		output.close()
+		
+
+
+	def __genwave(self, frequency, amplitude, samples, samplerate):
+	    cycles = samples * frequency / samplerate
+	    a = []
+	    for i in range(int(samples)):
+	        x = math.sin(float(cycles) * 2 * math.pi * i / float(samples)) * float(amplitude)
+	        a.append(int(math.floor(x)))
+	    return a
+
 
 	# Forward process ->
 	def juice(self):
@@ -145,6 +215,7 @@ class Mcoder:
 		# print("Rest of the medium appended- Cursor: " + str(medium_cursor))
 
 		# Create file to write to
+		print("Saving in: " + self.__mango.getOut())
 		new_sf_handle = wave.open(self.__mango.getOut(), "w")
 		new_sf_handle.setparams(self.__params)
 		new_sf_handle.writeframes(b"".join(new_sf))

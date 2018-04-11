@@ -8,12 +8,14 @@ class Curator:
 	def __init__(self):
 		pass
 
-	def Organise(self, inputPath, mediumPath):
+	def Organise(self, inputPath, mediumPath, out):
 		format = mediumPath[-3:]
+
+		out = "lsb/" + out + ".wav"
 
 		if format == 'wav' or format == 'flac' or format == 'ogg':
 			# Native file format
-			return inputPath, mediumPath
+			return inputPath, mediumPath, out
 		elif format == 'mp3':
 
 			newPath = "wav/" + mediumPath[:-3] + "wav"
@@ -30,8 +32,8 @@ class Curator:
 		else:
 			print(format + " is not a supported mango.")
 			exit(0)
-			
-		return inputPath, newPath
+
+		return inputPath, newPath, out
 
 	def isValid(self, filePath):
 		format = filePath[-3:]
