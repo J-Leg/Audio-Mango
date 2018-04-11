@@ -37,7 +37,7 @@ class Mcoder:
 		output = wave.open(out, 'w')
 
 		# nchannels, sample_width, framerate, nframes, comptype, compname
-		output.setparams((1, 2, wavrate, 0, 'NONE', 'not compressed'))
+		output.setparams((1, 2, wavrate, 0, 'NONE', 'uncompressed'))
 
 		# Height the image will appear in the spectrogram
 		freqrange = maxfreq - minfreq
@@ -50,10 +50,16 @@ class Mcoder:
 		# h flag for signed short type
 		data = array.array('h')
 
+
+		# Credits: https://github.com/alexadam/img-encode
 		for x in range(img.size[0]):
 			row = []
+
+			# Extract values along the row
 			for y in range(img.size[1]):
 				yinv = img.size[1] - y - 1
+
+				# Amplitude value determined from the RGB values at that pixel
 				amp = img.getpixel((x,y))
 				if (amp > 0):
 					row.append(self.__genwave(yinv * interval + minfreq, amp, fpx, wavrate) )
@@ -65,10 +71,12 @@ class Mcoder:
 					except(IndexError):
 						data.insert(i + x * fpx, j[i])
 					except(OverflowError):
+						# Set to min/max accordingly
 						if j[i] > 0:
 							data[i + x * fpx] = 32767
 						else:
 							data[i + x * fpx] = -32768
+
 			sys.stdout.write("Progress: %d%%   \r" % (float(x) / img.size[0]*100) )
 			sys.stdout.flush()
 
@@ -76,7 +84,6 @@ class Mcoder:
 		print("Saved in: " + out)
 		output.close()
 		
-
 
 	def __genwave(self, frequency, amplitude, samples, samplerate):
 	    cycles = samples * frequency / samplerate
