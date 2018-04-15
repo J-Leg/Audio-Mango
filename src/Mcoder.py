@@ -51,7 +51,8 @@ class Mcoder:
 		data = array.array('h')
 
 
-		# Credits: https://github.com/alexadam/img-encode
+		# Helped a lot
+		# https://github.com/alexadam/img-encode
 		for x in range(img.size[0]):
 			row = []
 
@@ -59,7 +60,7 @@ class Mcoder:
 			for y in range(img.size[1]):
 				yinv = img.size[1] - y - 1
 
-				# Amplitude value determined from the RGB values at that pixel
+				# Amplitude value determined from the value at that pixel
 				amp = img.getpixel((x,y))
 				if (amp > 0):
 					row.append(self.__genwave(yinv * interval + minfreq, amp, fpx, wavrate) )
@@ -82,16 +83,17 @@ class Mcoder:
 
 		print("Conversion complete!")
 		print("Saved in: " + out)
+		output.writeframes(data.tostring())
 		output.close()
 		
 
 	def __genwave(self, frequency, amplitude, samples, samplerate):
-	    cycles = samples * frequency / samplerate
-	    a = []
-	    for i in range(int(samples)):
-	        x = math.sin(float(cycles) * 2 * math.pi * i / float(samples)) * float(amplitude)
-	        a.append(int(math.floor(x)))
-	    return a
+		cycles = samples * frequency / samplerate
+		a = []
+		for i in range(int(samples)):
+			x = math.sin(float(cycles) * 2 * math.pi * i / float(samples)) * float(amplitude)
+			a.append(int(math.floor(x)))
+		return a
 
 
 	# Forward process ->
