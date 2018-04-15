@@ -6,9 +6,9 @@ from src.Curator import Curator
 from src.Mango import Mango
 
 def main():
-	directory = 'payload_lib/'
+	directory = 'extracted_payloads/'
 	parser = argparse.ArgumentParser()
-	parser.add_argument("input", help="The wav file holding the data")
+	parser.add_argument("input", help="The wav file holding the data. Don't input path to file.")
 	parser.add_argument("num_bytes", help="The number of bytes to recover")
 	args = parser.parse_args()
 
@@ -25,7 +25,7 @@ def main():
 		os.makedirs(directory)
 
 	# Initialise Mango
-	mango = Mango(None, args.input, directory + args.input[:-4] + '_payload')
+	mango = Mango(None, "lsb/" + args.input, directory + args.input[:-4] + '_payload')
 
 	# Initialise Mcoder
 	mc = Mcoder(mango)
