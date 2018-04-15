@@ -4,6 +4,7 @@ import os
 import struct
 import array
 import math
+from pydub import AudioSegment
 from PIL import Image, ImageOps
 
 class Mcoder:
@@ -25,6 +26,7 @@ class Mcoder:
 	def spectro(self):
 		out = self.__mango.getOut()
 		ip = self.__mango.getData()
+		medium = self.__mango.getMedium()
 
 		minfreq = 5000
 		maxfreq = 10000
@@ -50,6 +52,7 @@ class Mcoder:
 		# h flag for signed short type
 		data = array.array('h')
 
+		print("Conversion starting...")
 
 		# Helped a lot
 		# https://github.com/alexadam/img-encode
@@ -82,10 +85,20 @@ class Mcoder:
 			sys.stdout.flush()
 
 		print("Conversion complete!")
-		print("Saved in: " + out)
+		print("Initialising merge...")
 		output.writeframes(data.tostring())
 		output.close()
-		
+
+		# PyDub does wonders here
+		soundA = AudioSegment.from_file(out)
+		soundB = AudioSegment.from_file(medium)
+
+		# Appears to be adding along the time domain and normalising the results
+		combined = soundB.overlay(soundA)
+		print("Merge complete.")
+
+		combined.export(out)
+		print("Saved in: " + out)
 
 	def __genwave(self, frequency, amplitude, samples, samplerate):
 		cycles = samples * frequency / samplerate
