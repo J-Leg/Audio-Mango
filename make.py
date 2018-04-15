@@ -5,7 +5,7 @@ from src.Mcoder import Mcoder
 
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("input", help="Data file to be hidden.")
+	parser.add_argument("input", help="Payload file to be hidden.")
 	parser.add_argument("medium", help="The audio file.")
 	parser.add_argument("output", help="Set the output filename")
 	parser.add_argument("-m", "--mode", help="Select mode: lsb or spec", type=str)
