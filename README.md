@@ -40,7 +40,7 @@ optional arguments:
 
 ----------------------------------------------
 
-**Make.py** is the entry point for production. Grabs the files according to the input filenames and stores the modified audio in ```lsb/``` or ```spec/``` accordingly.  
+**make.py** is the entry point for production. Grabs the files according to the input filenames and stores the modified audio in ```lsb/``` or ```spec/``` accordingly.  
 
 
 ```
@@ -59,7 +59,7 @@ optional arguments:
 
 -----------------------------------------------------   
 
-**Extract.py** is the entry point for extraction *(duh)*. Grabs the requested file from ```lsb/``` *(spec extraction not implemented yet)* and stores the retrieved payload into ```extracted_payloads/```.  
+**extract.py** is the entry point for extraction *(duh)*. Grabs the requested file from ```lsb/``` *(spec extraction not implemented yet)* and stores the retrieved payload into ```extracted_payloads/```.  
 
 
 ```
