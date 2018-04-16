@@ -7,7 +7,7 @@ Lightweight program for encoding data into audio, written in Python.
 * [Pillow](http://python-pillow.org/) - A fork of PIL (Python Imaging Library)  
 * [PyDub](http://pydub.com/) - Audio manipulator  
 
-[Sonic Visualiser](https://www.sonicvisualiser.org/) Really awesome audio analyser. I recommend using it for viewing the generated spectrograms.  
+[Sonic Visualiser](https://www.sonicvisualiser.org/) is a really awesome audio analyser application. I recommend using it for viewing the generated spectrograms.  
 
 ![SomethingAwesome](include/repo/mango.jpg?raw=true)
 
