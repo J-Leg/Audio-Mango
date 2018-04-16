@@ -1,5 +1,5 @@
 # Audio-Mango
------------------------------------
+
 Lightweight program for encoding data into audio, written in Python.
 
 **Some dependencies**  
@@ -7,11 +7,11 @@ Lightweight program for encoding data into audio, written in Python.
 * [Pillow](http://python-pillow.org/) - A fork of PIL (Python Imaging Library)  
 * [PyDub](http://pydub.com/) - Audio manipulator
 
---------------------------------------
 ![SomethingAwesome](include/repo/mango.jpg?raw=true)
 
+ -----------------------------------------------------------
 
-**Usage**  
+### Usage 
 
 Storage for all input/audio files that you want to process should be placed accordingly into these directories. Please do so, the program's path lookup revolves around them!   
 * Audio collection (not for processing, just for convenience) ```include/lib/``` 
@@ -20,7 +20,7 @@ Storage for all input/audio files that you want to process should be placed acco
 
 ------------------------------------------------------------
 
-I have also written a simple slicer script that, you guessed it, slices audio.  
+**slicer.py**. I have also written a simple slicer script that, you guessed it, slices audio.  
 
 ```
 usage: slicer.py [-h] [-fi FADEIN] [-fo FADEOUT] input lo hi
@@ -40,7 +40,7 @@ optional arguments:
 
 ----------------------------------------------
 
-Make.py is the entry point for production. Grabs the files according to the input filenames and stores the modified audio in ```lsb/``` or ```spec/``` accordingly.  
+**Make.py** is the entry point for production. Grabs the files according to the input filenames and stores the modified audio in ```lsb/``` or ```spec/``` accordingly.  
 
 
 ```
@@ -59,7 +59,7 @@ optional arguments:
 
 -----------------------------------------------------   
 
-Extract.py is the entry point for extraction *(duh)*. Grabs the requested file from ```lsb/``` *(spec extraction not implemented yet)* and stores the retrieved payload into ```extracted_payloads/```.  
+**Extract.py** is the entry point for extraction *(duh)*. Grabs the requested file from ```lsb/``` *(spec extraction not implemented yet)* and stores the retrieved payload into ```extracted_payloads/```.  
 
 
 ```
@@ -72,6 +72,8 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```  
+
+---------------------------------------------------------
 
 **References**  
 Super helpful audio processing resources and some interesting articles.
