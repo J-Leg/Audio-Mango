@@ -15,7 +15,7 @@ def main():
 		mango = Mango("include/payload_lib/" + args.input, "include/slice_lib/" + args.medium, "spec/" + args.output + ".wav")
 		mc = Mcoder(mango)
 		mc.spectro()
-	else:
+	elif args.mode == 'lsb':
 		# Initialise Curator
 		c = Curator()
 
@@ -30,6 +30,8 @@ def main():
 
 		# Get down and boogy
 		mc.juice()
+	else:
+		print("No mode selected.")
 
 
 if __name__ == "__main__":
