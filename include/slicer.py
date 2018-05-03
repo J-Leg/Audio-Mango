@@ -1,9 +1,7 @@
 from pydub import AudioSegment
 import argparse
 
-
 # Put the sound file you want to slice into lib and use this script to slice
-
 parser = argparse.ArgumentParser()
 parser.add_argument("input", help="input file that exists in lib. Not path.")
 parser.add_argument("lo", help="lowerbound (sec)", type=int)
