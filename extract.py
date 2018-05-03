@@ -8,7 +8,7 @@ from src.Mango import Mango
 def main():
 	directory = 'extracted_payloads/'
 	parser = argparse.ArgumentParser()
-	parser.add_argument("input", help="The wav file holding the data. Don't input path to file.")
+	parser.add_argument("input", help="The wav file holding the data.")
 	parser.add_argument("num_bytes", help="The number of bytes to recover")
 	args = parser.parse_args()
 
