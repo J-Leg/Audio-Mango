@@ -1,7 +1,6 @@
 from PIL import Image, ImageOps
 from pydub import AudioSegment
 
-
 # Handles files
 class Curator:
 
@@ -29,6 +28,7 @@ class Curator:
 			sound.export(newPath, format="wav")	
 		else:
 			print(format + " is not a supported mango.")
+			print("Check file extension.")
 			exit(0)
 
 		return inputPath, newPath, out
