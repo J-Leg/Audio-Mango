@@ -9,7 +9,9 @@ Lightweight program for encoding data into audio, written in Python.
 
 [Sonic Visualiser](https://www.sonicvisualiser.org/) is a really awesome audio analyser application. I recommend using it for viewing the generated spectrograms.  
 
-![SomethingAwesome](include/repo/mango.jpg?raw=true)
+![SomethingAwesome](include/repo/mango.jpg?raw=true)  
+![Spectrogram in Sonic visualiser](include/repo/spectro.png?raw=true)
+![mangomerge](include/repo/mango_merge2.jpg?raw=true)  
 
  -----------------------------------------------------------
 
